@@ -1,6 +1,7 @@
 <!DOCTYPE HTML> 
 <html>
 <head>
+<meta charset="utf-8" />
 <style>
 .error {color: #FF0000;}
 </style>
@@ -9,9 +10,9 @@
 
 <h2>Connexion</h2>
 <form method="post" action="/CabinetMedical/dbphp/connectDB.php">
-	<input type="text" placeholder="Entrez votre ID">
-	<input type="submit" value="Je suis medecin">
-	<input type="submit" value="Je suis secretaire">
+	<input type="text" placeholder="Entrez votre ID" name="userID">
+	<input type="submit" name="medecin" value="Je suis médecin">
+	<input type="submit" name="secretaire" value="Je suis secretaire">
 </form>
 
  <!-- 

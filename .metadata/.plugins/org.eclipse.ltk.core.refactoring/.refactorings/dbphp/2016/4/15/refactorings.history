@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;dbphp/MedecinDashboard&apos; to &apos;MedecinDashboard.php&apos;" description="Rename resource &apos;MedecinDashboard&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="MedecinDashboard" name="MedecinDashboard.php" stamp="1460069911491" updateReferences="true"/>
+</session>

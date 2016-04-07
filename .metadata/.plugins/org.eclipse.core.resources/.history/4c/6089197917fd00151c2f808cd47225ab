@@ -1,0 +1,31 @@
+<?php
+
+session_start();
+
+$host = "host=localhost";
+$port = "port=5432";
+$dbname = "dbname=lab6";
+$credentials = "user=postgres password=postgres";
+
+$_SESSION["host"] = $host;
+$_SESSION["port"] = $port;
+$_SESSION["db"] = $dbname;
+$_SESSION["credentials"] = $credentials;
+
+function connectDB($host, $port, $dbname, $credentials) {
+	
+	$db = pg_connect ( "$host $port $dbname $credentials" );
+	if (! $db) {
+		echo "Error : Unable to open database\n";
+	} else {
+		if(isset($_POST['submit']))
+			echo "test";
+		else
+			echo "no test";
+		//header('Location: /CabinetMedical/dbphp/MedecinDashboard.php');
+	}
+}
+
+connectDB ($host, $port, $dbname, $credentials);
+
+?>
