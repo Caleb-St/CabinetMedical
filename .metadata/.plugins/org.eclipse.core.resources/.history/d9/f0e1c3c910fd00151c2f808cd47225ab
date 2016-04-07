@@ -11,7 +11,7 @@
 <form method="post" action="/CabinetMedical/dbphp/connectDB.php">
 	<input type="text" placeholder="Entrez votre ID">
 	<input type="submit" value="Je suis medecin">
-	<input type="submit" value="Je suis secretaire">
+	<input type="submit" value="Je suis secrwtaire">
 </form>
 
  <!-- 
