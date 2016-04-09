@@ -1,0 +1,18 @@
+<table>
+<tr>
+<?php
+for($i=0; $i<count($headers); $i++)
+		echo "<th>" . $headers[$i] . "</th>\n";
+?>
+</tr>
+<tr>
+<?php
+while($row = pg_fetch_row($tableData)){
+	for($i=0; $i<pg_num_fields($tableData); $i++) {
+		echo "<tr> \n";
+		echo "<td>" . $row[$i] . "</td>";
+		echo "</tr> \n";
+	}
+}
+?>
+</table>

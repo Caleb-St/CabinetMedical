@@ -1,3 +1,4 @@
+<?php setlocale(LC_ALL, "fr_CA.UTF-8","fra");?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,54 +9,48 @@
 	<input style="float:right;" type="submit" name="medecin" value="Deconnexion">
 </form> 
 <?php
+$tableHeaders;
+$tableData;
+
 require_once("DatabaseManager.php");
 session_start ();
 $userID = $_SESSION["userID"];
-$DBManager = $_SESSION["DatabaseManager"];
 
-$ret = $DBManager->runQuery("SELECT nom,prenom from Medecin WHERE medID='$userID';");
+$ret = runQuery("SELECT nom,prenom from Medecin WHERE medID='$userID';");
 $row = pg_fetch_row($ret);
-echo "Bonjour Dr. " . $row[1] . " " . $row[0];
-
-$appointment = "SELECT heure, concat(' ', prenom, nom), duree FROM consultation NATURAL JOIN Patient WHERE medID='$userID' AND cdate";
-$today = $appointment . "=current_date;";
-$next = $appointment . ">current_date;";
-$appointmentsToday = $DBManager->runQuery($today);
-$appointmentsNext = $DBManager->runQuery($next);
 ?>
+<ul>
+<li> <?php echo "Bonjour Dr. " . $row[1] . " " . $row[0]; ?>
+<li> Le <?php echo strftime("%A %d %B %Y"); ?>
+</ul>
 <h2>Consultations d'ajourd'hui</h2>
-<table>
-<tr>
-<th>Heure</th>
-<th>Patient</th>
-<th>Duree</th>
-</tr>
 <?php 
-while($row = pg_fetch_row($appointmentsToday)){
-	for($i=0; $i<pg_num_fields($appointmentsToday); $i++) {
-		echo "<tr> \n";
-		echo "<td>" . $row[$i] . "</td>";
-		echo "</tr> \n";
-	}
+$sql = "SELECT heure, concat(' ', prenom, nom), duree FROM consultation NATURAL JOIN Patient WHERE medID='$userID' AND cdate =current_date;";
+$appointmentsToday = runQuery($sql);
+
+
+if(pg_num_rows($appointmentsToday) == 0) {
+	echo "Vous n'avez aucune consultation ajourd'hui.";
+}
+else {
+	
+	$tableData = $appointmentsToday;
+	include("TableTemplate.php");
 }
 ?>
-</table>
 <h2>Consultations prochaines</h2>
-<table>
-<tr>
-<th>Heure</th>
-<th>Patient</th>
-<th>Duree</th>
-</tr>
-<?php 
-while($row = pg_fetch_row($appointmentsNext)){
-	echo "<tr> \n";
-	for($i=0; $i<pg_num_fields($appointmentsNext); $i++) {
-		echo "<td>" . $row[$i] . "</td>";
-	}
-	echo "</tr> \n";
+<?php
+$sql = "SELECT cdate, heure, concat(' ', prenom, nom), duree FROM consultation NATURAL JOIN Patient WHERE medID='$userID' AND cdate > current_date ORDER BY cdate;";
+$appointmentsNext = runQuery($sql);
+
+if(pg_num_rows($appointmentsNext) == 0) {
+	echo "Vous n'avez aucunes consultations prochaines.";
+}
+else {
+	$tableHeaders = array("Date", "Heure", "Patient", "Duree");
+	$tableData = $appointmentsNext;
+	include("TableTemplate.php");
 }
 ?>
-</table>
 </body>
 </html>

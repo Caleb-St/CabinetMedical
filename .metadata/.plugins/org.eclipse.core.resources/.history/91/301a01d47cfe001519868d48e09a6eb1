@@ -1,0 +1,12 @@
+<?php
+
+require_once("DatabaseManager.php");
+session_start();
+
+connect(); //try connecting to the DB just to make sure we have access before proceeding.
+
+$_SESSION["DatabaseManager"] = $DatabaseManager;
+$_SESSION["userID"] = $_POST["userID"];
+header('Location: /CabinetMedical/dbphp/MedecinDashboard.php');
+
+?>
