@@ -23,6 +23,8 @@ class DatabaseManager {
 		}
 		return $ret;
 	}
+	
+	public function()
 }
 
 ?>

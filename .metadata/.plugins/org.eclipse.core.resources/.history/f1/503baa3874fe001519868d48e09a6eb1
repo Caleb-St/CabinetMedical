@@ -17,7 +17,7 @@ $ret = $DBManager->runQuery("SELECT nom,prenom from Medecin WHERE medID='$userID
 $row = pg_fetch_row($ret);
 echo "Bonjour Dr. " . $row[1] . " " . $row[0];
 
-$appointment = "SELECT heure, concat(' ', prenom, nom), duree FROM consultation NATURAL JOIN Patient WHERE medID='$userID' AND cdate";
+$appointment = "SELECT prenom, nom, duree FROM consultation NATURAL JOIN Patient WHERE medID='$userID' AND cdate";
 $today = $appointment . "=current_date;";
 $next = $appointment . ">current_date;";
 $appointmentsToday = $DBManager->runQuery($today);
@@ -49,11 +49,11 @@ while($row = pg_fetch_row($appointmentsToday)){
 </tr>
 <?php 
 while($row = pg_fetch_row($appointmentsNext)){
-	echo "<tr> \n";
 	for($i=0; $i<pg_num_fields($appointmentsNext); $i++) {
+		echo "<tr> \n";
 		echo "<td>" . $row[$i] . "</td>";
+		echo "</tr> \n";
 	}
-	echo "</tr> \n";
 }
 ?>
 </table>

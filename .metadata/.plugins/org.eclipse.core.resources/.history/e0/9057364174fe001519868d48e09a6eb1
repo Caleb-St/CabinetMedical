@@ -49,11 +49,11 @@ while($row = pg_fetch_row($appointmentsToday)){
 </tr>
 <?php 
 while($row = pg_fetch_row($appointmentsNext)){
-	echo "<tr> \n";
 	for($i=0; $i<pg_num_fields($appointmentsNext); $i++) {
+		echo "<tr> \n";
 		echo "<td>" . $row[$i] . "</td>";
+		echo "</tr> \n";
 	}
-	echo "</tr> \n";
 }
 ?>
 </table>

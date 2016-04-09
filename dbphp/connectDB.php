@@ -4,14 +4,10 @@ require_once("DatabaseManager.php");
 session_start();
 
 $DatabaseManager = new DatabaseManager();
+$DatabaseManager->connect(); //try connecting to the DB just to make sure we have access before proceeding.
 
-if(! $DatabaseManager->connect() ) {
-	echo "Error : Unable to connect to the database\n";
-}
-else {
-	$_SESSION["DatabaseManager"] = $DatabaseManager;
-	$_SESSION["userID"] = $_POST["userID"];
-	header('Location: /CabinetMedical/dbphp/MedecinDashboard.php');
-}
+$_SESSION["DatabaseManager"] = $DatabaseManager;
+$_SESSION["userID"] = $_POST["userID"];
+header('Location: /CabinetMedical/dbphp/MedecinDashboard.php');
 
 ?>

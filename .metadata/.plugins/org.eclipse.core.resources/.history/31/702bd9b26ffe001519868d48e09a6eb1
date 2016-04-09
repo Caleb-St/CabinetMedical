@@ -15,13 +15,18 @@ class DatabaseManager {
 			echo "Error : Unable to connect to the database\n";
 			exit();
 		}
-		pg_exec($db, "SET search_path = 'cabinetmd';");
+		$db->exec('SET search_path = cabinetMD');
 		$ret = pg_query ( $db, $query );
 		if (! $ret) {
 			echo pg_last_error ( $db );
 			exit ();
 		}
 		return $ret;
+	}
+		
+	public function getSecretaryFullName($ID) {
+		$sql = "SELECT prenom,nom from CabinetMD.Secretaire WHERE medID='$ID';";
+		return $this->runQuery($sql);
 	}
 }
 
