@@ -10,29 +10,16 @@
 </form> 
 
 <?php
+require_once("DatabaseManager.php");
 session_start ();
 $userID = $_SESSION["userID"];
+$DBManager = $_SESSION["DatabaseManager"];
 
-$host = $_SESSION ["host"];
-$port = $_SESSION ["port"];
-$dbname = $_SESSION ["db"];
-$credentials = $_SESSION ["credentials"];
+$ret = $DBManager->getDoctorFullName($userID);
 
-
-$db = pg_connect ( "$host $port $dbname $credentials" );
-
-$sql = <<<EOF
-      SELECT nom,prenom from CabinetMD.Medecin WHERE medID='$userID';
-EOF;
-
-$ret = pg_query ( $db, $sql );
-if (! $ret) {
-	echo pg_last_error ( $db );
-	exit ();
-}
 $row = pg_fetch_row($ret);
 
-echo "Bonjour, Dr." . $row[1] . " " . $row[0];
+echo "Bonjour, Dr. " . $row[1] . " " . $row[0];
 ?>
 </body>
 </html>

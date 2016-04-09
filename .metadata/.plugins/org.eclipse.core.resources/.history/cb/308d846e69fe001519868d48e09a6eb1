@@ -1,0 +1,17 @@
+<?php
+
+require_once("DatabaseManager.php");
+session_start();
+
+$DatabaseManager = new DatabaseManager();
+
+if(! $DatabaseManager->connect() ) {
+	echo "Error : Unable to open database\n";
+}
+else {
+	$_SESSION["DatabaseManager"] = $DatabaseManage;
+	$_SESSION["userID"] = $_POST["userID"];
+	//header('Location: /CabinetMedical/dbphp/MedecinDashboard.php');
+}
+
+?>

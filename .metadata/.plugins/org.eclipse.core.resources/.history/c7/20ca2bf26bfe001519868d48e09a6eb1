@@ -1,0 +1,37 @@
+<?php
+class DatabaseManager {
+
+	const host = "host=localhost";
+	const port = "port=5432";
+	const dbname = "dbname=projet";
+	const credentials = "user=postgres password=postgres";
+
+	public function connect() {
+		$db = pg_connect ( "self::host $port $dbname $credentials" );
+		return $db;
+	}
+	
+	public function runQuery($query) {
+		$db = $this->connect();
+		$ret = pg_query ( $db, $query );
+		if (! $ret) {
+			echo pg_last_error ( $db );
+			exit ();
+		}
+		return $ret;
+	}
+	
+	public function getDoctorFullName($ID) {
+		$sql = <<<EOF
+      SELECT nom,prenom from CabinetMD.Medecin WHERE medID='$ID';
+EOF;
+		return $this->runQuery($sql);
+	}
+		
+	public function getSecretaryFullName($ID) {
+		$sql = "SELECT prenom,nom from CabinetMD.Secretaire WHERE medID='$ID';";
+		return $this->runQuery($sql);
+	}
+}
+
+?>

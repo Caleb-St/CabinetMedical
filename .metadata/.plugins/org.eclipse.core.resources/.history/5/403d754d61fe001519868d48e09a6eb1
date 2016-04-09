@@ -1,0 +1,21 @@
+<?php
+class DatabaseManager {
+	const host = "host=localhost";
+	const port = "port=5432";
+	const dbname = "dbname=projet";
+	const credentials = "user=postgres password=postgres";
+
+	private $db;
+
+	public function connect($host, $port, $dbname, $credentials) {
+		$this->$db = pg_connect ( "$host $port $dbname $credentials" );
+		if (! $this->$db) {
+			echo "Error : Unable to open database\n";
+		} else {
+			$_SESSION["userID"] = $_POST["userID"];
+			header('Location: /CabinetMedical/dbphp/MedecinDashboard.php');
+		}
+	}
+}
+
+?>

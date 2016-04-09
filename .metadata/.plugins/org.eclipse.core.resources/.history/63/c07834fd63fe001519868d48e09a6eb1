@@ -1,0 +1,19 @@
+<?php
+class DatabaseManager {
+	private $db;
+
+	public function connect() {
+		$host = "host=localhost";
+		$port = "port=5432";
+		$dbname = "dbname=projet";
+		$credentials = "user=postgres password=postgres";
+		
+		$this->db = pg_connect ( "$host $port $dbname $credentials" );
+		if(!$this->db)
+			return FALSE;
+		else
+			return TRUE;
+	}
+}
+
+?>
