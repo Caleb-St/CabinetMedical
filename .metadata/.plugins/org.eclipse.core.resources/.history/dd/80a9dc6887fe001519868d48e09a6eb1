@@ -1,0 +1,7 @@
+.form-actions {
+	text-align:center;
+}
+
+body { 
+  padding: 45px 0 0 0;
+}

@@ -1,0 +1,8 @@
+.form-actions {
+	text-align:center;
+	margin-top:10px;
+}
+
+.btn-alt {
+	background: #47a247;
+}

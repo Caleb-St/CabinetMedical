@@ -1,4 +1,4 @@
-<?php setlocale(LC_ALL, "French_Canadian.UTF-8");?>
+<?php include("Header.php") ?>
 <!DOCTYPE HTML> 
 <html>
 <head>
@@ -11,9 +11,13 @@
 
 <h2>Connexion</h2>
 <form method="post" action="/CabinetMedical/dbphp/connectDB.php">
-	<input type="text" placeholder="Entrez votre ID" name="userID">
-	<input type="submit" name="medecin" value="Je suis medecin">
-	<input type="submit" name="secretaire" value="Je suis secretaire">
+ <div class="input-group">
+	<input class ="form-control" type="text" placeholder="Entrez votre ID" name="userID">
+	<div class="form-actions">
+	    <button type="submit" class="btn btn-primary" name="medecin">Je suis medecin</button>
+	    <button type="submit" class="btn btn-success" name="secretaire">Je suis secretaire</button>
+ 	</div>
+ </div>
 </form>
 
  <!-- 

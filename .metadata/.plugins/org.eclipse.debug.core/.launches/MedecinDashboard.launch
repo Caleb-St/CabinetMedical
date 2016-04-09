@@ -3,7 +3,7 @@
 <stringAttribute key="base_url" value="http://localhost/dbphp/MedecinDashboard.php"/>
 <stringAttribute key="debugOutputEncoding" value="UTF-8"/>
 <stringAttribute key="debugTransferEncoding" value="UTF-8"/>
-<stringAttribute key="file_name" value="/dbphp/MedecinDashboard.php"/>
+<stringAttribute key="file_name" value="/dbphp/medecinDashboard.php"/>
 <booleanAttribute key="firstLineBreakpoint" value="true"/>
 <stringAttribute key="name" value="Default PHP Web Server"/>
 <listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_PATHS">

@@ -1,0 +1,7 @@
+.form-actions {
+	text-align:center;
+}
+
+.navbar {
+    margin-bottom: 0;
+}
