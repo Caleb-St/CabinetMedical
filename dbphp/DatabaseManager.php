@@ -3,7 +3,7 @@
 	$host = "host=www.eecs.uottawa.ca";
 	$port = "port=15432";
 	$dbname = "dbname=mwatt023";
-	$credentials = "user=mwatt023 password=*****";
+	$credentials = "user=mwatt023 password=******";
 	return pg_connect ( "$host $port $dbname $credentials" );
 }
 
