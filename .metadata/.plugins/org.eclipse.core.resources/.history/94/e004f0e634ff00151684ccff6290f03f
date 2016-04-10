@@ -92,7 +92,7 @@ else
 	    <div class="panel-footer" align="center">
 	    	<button class="btn btn-success">Sauvegarder</button>
 	    	<?php if($isSecretary) { ?><button class="btn btn-danger">Supprimer</button> <?php } ?>
-	    	<a class="btn btn-default" href="Dashboard.php">Retour</a>
+	    	<a class="btn btn-default" href="MedecinDashboard.php">Retour</a>
 	    </div>
 	</div>
 </div>

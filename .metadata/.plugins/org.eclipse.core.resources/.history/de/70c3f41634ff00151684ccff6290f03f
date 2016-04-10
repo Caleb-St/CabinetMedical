@@ -1,0 +1,41 @@
+<?php
+$tableHeaders;
+$tableData;
+
+require_once("DatabaseManager.php");
+session_start ();
+$userID = $_SESSION["userID"];
+$isDoctor = $_SESSION["userIsDoctor"];
+
+if ($isDoctor) {
+	$ret = runQuery("SELECT nom,prenom from Medecin WHERE medID='$userID';");
+	$consultation = pg_fetch_row($ret);
+} else {
+	$ret = runQuery("SELECT nom,prenom from Secretaire WHERE secID='$userID';");
+	$consultation = pg_fetch_row($ret);
+}
+?>
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">CabMD</a>
+    </div>
+    <ul class="nav navbar-nav navbar-left">
+      <li><a href="main.php">Home</a></li>
+      <li class="dropdown">
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Consultations
+        <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a href="#">Ajout</a></li>
+          <li><a href="#">Mes consultations</a></li>
+          <li><a href="#">Tout</a></li> 
+        </ul>
+      </li> 
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+    	<li class="active"><span class="glyphicon glyphicon-user"></span> <?php if($isDoctor) echo Dr.; echo $consultation[1] . " " . $consultation[0];?></li>
+    	<li class="active"><span class="glyphicon glyphicon-user"></span> <?php echo $consultation[1] . " " . $consultation[0];?></li>
+    	<li><a href="/CabinetMedical/dbphp/main.php">Deconnexion</a></li>
+    </ul>
+  </div>
+</nav>
