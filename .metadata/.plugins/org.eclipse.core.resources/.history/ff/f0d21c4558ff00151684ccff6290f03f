@@ -1,15 +1,7 @@
 <?php
  function db_connect() {
-<<<<<<< HEAD
-	$host = "host=www.eecs.uottawa.ca";
-	$port = "port=15432";
-	$dbname = "dbname=mwatt023";
-	$credentials = "user=mwatt023 password=******";
-	return pg_connect ( "$host $port $dbname $credentials" );
-=======
-	require "Configuration.php";
+	include_once "Configuration.php";
 	return pg_connect ( "$config_host $config_port $config_dbname $config_credentials" );
->>>>>>> 63916b6067f074682bf45b3f4a333f7c9ef5082b
 }
 
  function runQuery($query) {
