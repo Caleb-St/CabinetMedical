@@ -61,10 +61,9 @@ function delete_id(id)
 </script>
 <div class="col-md-6 col-md-offset-3">
 	<h2><span>Details de la consulation</span></h2>
-	<form class="form-horizontal" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
 	<div class="panel panel-default">
 		<div class="panel-body">
-		    
+		    <form class="form-horizontal" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
 		    	<div class="form-group">
 		    		<label class="col-md-2 control-label">Patient:</label>
 		    		<div class="col-md-3">
@@ -134,19 +133,20 @@ function delete_id(id)
 		    			<input type="text" class="form-control" name="objet" id="objet" value="<?php echo $consultation[5];?>" <?php if($isSecretary) echo "readonly"?>/>
 		    		</div>
 		    	</div>
-		    
+		    	<div align="center">
+				    <?php if ($isNew) {?>
+			    		<button type="submit" class="btn btn-success" name="btn-new">Creer</button>
+			    	<?php } else {?>
+			    		<button type="submit" class="btn btn-success" name="btn-update">Sauvegarder</button>	
+			    	<?php }?>
+	    		</div>
+			</form>
 		</div>
-	    <div class="panel-footer" align="center">
-	    	<?php if ($isNew) {?>
-	    		<button type="submit" class="btn btn-success" name="btn-new">Creer</button>
-	    	<?php } else {?>
-	    		<button type="submit" class="btn btn-success" name="btn-update">Sauvegarder</button>	
-	    	<?php }
-	    	if($isSecretary) { ?><a href="javascript:delete_id('<?php echo $pid . $mid . $dt; ?>')"><button class="btn btn-danger">Supprimer</button></a> <?php } ?>
-	    	<a class="btn btn-default" href="Dashboard.php">Retour</a>
-	    </div>
+		<div class="panel-footer" align="right">
+			<?php if($isSecretary) { ?><a href="javascript:delete_id('<?php echo $pid . $mid . $dt; ?>')"><button class="btn btn-danger">Supprimer</button></a> <?php } ?>
+			<a class="btn btn-default" href="Dashboard.php">Retour</a>    	
+		</div>
 	</div>
-	</form>
 </div>
 </body>
 </html>
