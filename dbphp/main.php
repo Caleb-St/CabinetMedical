@@ -7,19 +7,18 @@
 .error {color: #FF0000;}
 </style>
 </head>
-<body> 
-
-<h2>Connexion</h2>
-<form method="post" action="/CabinetMedical/dbphp/connectDB.php">
- <div class="input-group">
-	<input class ="form-control" type="text" placeholder="Entrez votre ID" name="userID">
-	<div class="form-actions">
-	    <button type="submit" class="btn btn-primary" name="medecin">Je suis medecin</button>
-	    <button type="submit" class="btn btn-success" name="secretaire">Je suis secretaire</button>
- 	</div>
- </div>
-</form>
-
+<body>
+<div class="container" align="center">
+	<form class="form-signin" method="post" action="/CabinetMedical/dbphp/connectDB.php">
+	 	 <h2>Connexion</h2>
+		 <div class="input-group">
+			<input class ="form-control" type="text" placeholder="SVP entrez votre ID" name="userID">
+			 <div class="form-actions">
+			    <button type="submit" class="btn btn-primary" name="submit">Soumettre</button>
+			 </div>
+		 </div>
+	</form>
+</div>
  <!-- 
 <h2></h2>
 <form method="post" action="/dbphp/connectDB.php"> 
