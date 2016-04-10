@@ -85,7 +85,7 @@ if (pg_num_rows($appointmentsToday) > 0){
 <?php }?>
 </table>
 </div>
-<tr><td align="center"><button class="btn btn-default" href="CreateConsultation.php" <?php if ($userID[0] != 'S') {?>disabled="disabled"<?php }?>><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>  Nouveau</button></tr>
+<?php if ($userID[0] == 'S') {?><button class="btn btn-default" href="CreateConsultation.php"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>  Nouveau</button><?php } ?>
 </div>
 </body>
 </html>

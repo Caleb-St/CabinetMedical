@@ -1,9 +1,9 @@
 <?php
  function db_connect() {
-	$host = "host=www.eecs.uottawa.ca";
-	$port = "port=15432";
-	$dbname = "dbname=mwatt023";
-	$credentials = "user=mwatt023 password=******";
+	$host = "host=localhost";
+	$port = "port=5432";
+	$dbname = "dbname=projet";
+	$credentials = "user=postgres password=postgres";
 	return pg_connect ( "$host $port $dbname $credentials" );
 }
 
