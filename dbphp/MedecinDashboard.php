@@ -7,7 +7,7 @@ $userID = $_SESSION["userID"];
 $ret = runQuery("SELECT nom,prenom from Medecin WHERE medID='$userID';");
 $row = pg_fetch_row($ret);
 ?>
-<div class="col-md-6">
+<div class="col-md-6 col-md-offset-3">
 <h2><span>Vos consultations ajourd'hui</span></h2>
 <div class="panel panel-default">
 <table class="table table-striped">
@@ -46,6 +46,7 @@ if (pg_num_rows($appointmentsToday) > 0){
 <?php }?>
 </table>
 </div>
+<br>
 <h2><span>Vos consultations futures</span></h2>
 <div class="panel panel-default">
 <table class="table table-striped">

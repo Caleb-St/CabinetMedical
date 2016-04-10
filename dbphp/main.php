@@ -8,16 +8,15 @@
 </style>
 </head>
 <body>
-<div class="container" align="center">
-	<form class="form-signin" method="post" action="/CabinetMedical/dbphp/connectDB.php">
-	 	 <h2>Connexion</h2>
-		 <div class="input-group">
-			<input class ="form-control" type="text" placeholder="SVP entrez votre ID" name="userID">
-			 <div class="form-actions">
-			    <button type="submit" class="btn btn-primary" name="submit">Soumettre</button>
-			 </div>
-		 </div>
-	</form>
+<div class="col-md-6 col-md-offset-3">
+<form class="form-signin" align="center" method="post" action="/CabinetMedical/dbphp/connectDB.php">
+	 	<h2>Connexion</h2>
+		<div class="form-group" align="center">
+			<input class ="form-control" type="text" style="width:20%;" placeholder="SVP entrez votre ID" name="userID">
+		</div>
+	    <button type="submit" class="btn btn-primary" name="submit">Soumettre</button>
+		
+</form>
 </div>
  <!-- 
 <h2></h2>
