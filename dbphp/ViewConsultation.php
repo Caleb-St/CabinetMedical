@@ -14,10 +14,40 @@ if(!$isNew)
 	$appointments = runQuery($query_GetConsult);
 	$consultation = pg_fetch_row($appointments);
 }
-else
+elseif(isset($_POST['btn-update']))
+{
+	$heure = $_POST['heure'];
+	$duree = $_POST['duree'];
+	$objet = $_POST['objet'];
+
+	// sql query for update data into database
+	$query_update = "UPDATE Consultation SET heure='$heure', duree='$duree', objet='$objet' WHERE patid='$pid' AND medid='$mid' AND cdate='$dt'";
+	// sql query for update data into database
+	
+	// sql query execution function
+	if(runQuery($query_update))
+	{
+		?>
+	  <script type="text/javascript">
+	  alert('Data Are Updated Successfully');
+	  window.location.href='Dashboard.php';
+	  </script>
+	  <?php
+	 }
+	 else
+	 {
+	  ?>
+	  <script type="text/javascript">
+	  alert('error occured while updating data');
+	  </script>
+	  <?php
+	 }
+} else
 	$consultation = array("","","","","","","","");
+
+
 ?>
-<script type="text/javascript">
+<script type="text/javascript">	
 function delete_id(id)
 {
  if(confirm('Sure to Delete ?'))
@@ -28,9 +58,10 @@ function delete_id(id)
 </script>
 <div class="col-md-6 col-md-offset-3">
 	<h2><span>Details de la consulation</span></h2>
+	<form class="form-horizontal" method="post">
 	<div class="panel panel-default">
 		<div class="panel-body">
-		    <form class="form-horizontal">
+		    
 		    	<div class="form-group">
 		    		<label class="col-md-2 control-label">Patient:</label>
 		    		<div class="col-md-3">
@@ -57,7 +88,7 @@ function delete_id(id)
 		    			<?php if($isNew) {	?>
 			    			<select class="form-control" name="med_id">
 			    				<?php 
-			    				$query_GetMedecins = "SELECT medid, prenom, nom FROM medecin ORDER BY nom;";
+			    				$query_GetMedecins = "SELECT medid, prenom, nom FROM medecin WHERE secid ='$userID' ORDER BY nom;";
 			    				$medecins = runQuery($query_GetMedecins);
 			    				$mnames = pg_fetch_row($medecins);
 								do {
@@ -70,40 +101,45 @@ function delete_id(id)
 		    				$medecin = runQuery($query_GetMedecin);
 		    				$mname = pg_fetch_row($medecin);
 	    				?>
-	    					<input type="text" class="form-control" name="pat_id" value="<?php echo $mname[0]. ' ' . $mname[1];?>" disabled>
+	    					<input type="text" class="form-control" name="med_id" value="<?php echo $mname[0]. ' ' . $mname[1];?>" disabled>
 		    			<?php }?>
 		    		</div>
 		    	</div>
 		    	<div class="form-group">
 		    		<label class="col-md-2 control-label">Date:</label>
 		    		<div class="col-md-3">
-		    			<input type="date" class="form-control" name="first_name" value="<?php echo $consultation[2];?>" <?php if(!$isSecretary) echo "disabled"?> />
+		    			<input type="date" class="form-control" name="c_date" value="<?php echo $consultation[2];?>" <?php if(!$isSecretary or !$isNew) echo "disabled"?> />
 		    		</div>
 		    		<label class="col-md-2 control-label">Heure:</label>
 		    		<div class="col-md-3">
-		    			<input type="time" class="form-control" name="first_name" value="<?php echo $consultation[3];?>" <?php if(!$isSecretary) echo "disabled"?> />
+		    			<input type="time" class="form-control" name="heure" value="<?php echo $consultation[3];?>" <?php if(!$isSecretary) echo "readonly"?> />
 		    		</div>
 		    	</div>
 		    	<div class="form-group">
 		    		<label class="col-md-2 control-label">Duree:</label>
 		    		<div class="col-md-3">
-		    			<input type="text" class="form-control" name="first_name" value="<?php echo $consultation[4];?>"  />
+		    			<input type="text" class="form-control" name="duree" value="<?php echo $consultation[4];?>" <?php if(!$isSecretary) echo "readonly"?>  />
 		    		</div>
 		    	</div>
 		    	<div class="form-group">
 		    		<label class="col-md-2 control-label">Objet:</label>
 		    		<div class="col-md-8">
-		    			<input type="text" class="form-control" name="first_name" value="<?php echo $consultation[5];?>" <?php if($isSecretary) echo "disabled"?>/>
+		    			<input type="text" class="form-control" name="objet" value="<?php echo $consultation[5];?>" <?php if($isSecretary) echo "readonly"?>/>
 		    		</div>
 		    	</div>
-		    </form>
+		    
 		</div>
 	    <div class="panel-footer" align="center">
-	    	<button class="btn btn-success">Sauvegarder</button>
-	    	<?php if($isSecretary) { ?><a href="javascript:delete_id('<?php echo $pid . $mid . $dt; ?>')"><button class="btn btn-danger">Supprimer</button> <?php } ?>
+	    	<?php if ($isNew) {?>
+	    		<button type="submit" class="btn btn-success" name="btn-new">Creer</button>
+	    	<?php } else {?>
+	    		<button type="submit" class="btn btn-success" name="btn-update">Sauvegarder</button>	
+	    	<?php }
+	    	if($isSecretary) { ?><a href="javascript:delete_id('<?php echo $pid . $mid . $dt; ?>')"><button class="btn btn-danger">Supprimer</button></a> <?php } ?>
 	    	<a class="btn btn-default" href="Dashboard.php">Retour</a>
 	    </div>
 	</div>
+	</form>
 </div>
 </body>
 </html>
