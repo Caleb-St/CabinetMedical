@@ -1,7 +1,7 @@
 <?php
  function db_connect() {
 	require "Configuration.php";
-	return pg_connect ( "$config_host $config_port $config_dbname $config_credentials" );
+	return pg_connect ( "$confg_host $config_port $config_dbname $credentials" );
 }
 
  function runQuery($query) {
