@@ -17,6 +17,15 @@ if(!$isNew)
 else
 	$consultation = array("","","","","","","","");
 ?>
+<script type="text/javascript">
+function delete_id(id)
+{
+ if(confirm('Sure to Delete ?'))
+ {
+  window.location.href='Dashboard.php?delete_id='+id;
+ }
+}
+</script>
 <div class="col-md-6 col-md-offset-3">
 	<h2><span>Details de la consulation</span></h2>
 	<div class="panel panel-default">
@@ -91,7 +100,7 @@ else
 		</div>
 	    <div class="panel-footer" align="center">
 	    	<button class="btn btn-success">Sauvegarder</button>
-	    	<?php if($isSecretary) { ?><button class="btn btn-danger">Supprimer</button> <?php } ?>
+	    	<?php if($isSecretary) { ?><a href="javascript:delete_id('<?php echo $pid . $mid . $dt; ?>')"><button class="btn btn-danger">Supprimer</button> <?php } ?>
 	    	<a class="btn btn-default" href="Dashboard.php">Retour</a>
 	    </div>
 	</div>

@@ -10,6 +10,17 @@ $_SESSION["userIsSecretary"] = $isSecretary = $userID[0] == 'S' || $userID[0] ==
 $ret = runQuery("SELECT nom,prenom from Medecin WHERE medID='$userID';");
 $consultation = pg_fetch_row($ret);
 
+if(isset($_GET['delete_id']))
+{
+	$pid = $_GET['delete_id'][0]. $_GET['delete_id'][1]. $_GET['delete_id'][2]. $_GET['delete_id'][3];
+	$mid = $_GET['delete_id'][4]. $_GET['delete_id'][5]. $_GET['delete_id'][6]. $_GET['delete_id'][7];
+	$dt = $_GET['delete_id'][8]. $_GET['delete_id'][9]. $_GET['delete_id'][10]. $_GET['delete_id'][11]. $_GET['delete_id'][12]. $_GET['delete_id'][13]. $_GET['delete_id'][14]. $_GET['delete_id'][15]. $_GET['delete_id'][16]. $_GET['delete_id'][17];
+	echo "DELETE FROM Consultation WHERE patid='$pid' AND medid='$mid' AND cdate='$dt';";
+	$query_DelConsult="DELETE FROM Consultation WHERE patid='$pid' AND medid='$mid' AND cdate='$dt';";
+	$delete = runQuery($query_DelConsult);
+	header("Location: $_SERVER[PHP_SELF]");
+}
+
 /* Permet de naviguer à une consultation en cliquant sa rangée. */
 function viewConsultation($patient,$med,$date) {
 	echo "document.location = 'ViewConsultation.php?con=$patient$med$date';";
