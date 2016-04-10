@@ -1,6 +1,6 @@
 <?php
  function db_connect() {
-	require "Configuration.php";
+	include_once '';("Configuration.php");
 	return pg_connect ( "$config_host $config_port $config_dbname $config_credentials" );
 }
 

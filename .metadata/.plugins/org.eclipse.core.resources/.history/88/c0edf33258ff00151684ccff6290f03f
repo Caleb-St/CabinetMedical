@@ -1,0 +1,6 @@
+<?php
+global $config_host = "host=localhost";
+global $config_port = "port=5432";
+global $config_dbname = "dbname=projet";
+global $config_credentials = "user=postgres password=postgres";
+?>

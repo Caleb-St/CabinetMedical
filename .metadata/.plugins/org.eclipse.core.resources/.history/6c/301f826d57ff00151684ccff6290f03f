@@ -1,0 +1,6 @@
+<?php
+const config_host = "host=localhost";
+const config_port = "port=5432";
+const config_dbname = "dbname=projet";
+const config_credentials = "user=postgres password=postgres";
+?>
