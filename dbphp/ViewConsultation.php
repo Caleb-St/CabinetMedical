@@ -16,12 +16,15 @@ if(!$isNew)
 }
 elseif(isset($_POST['btn-update']))
 {
+	$pid = $_POST['pat_id'];
+	$mid = $_POST['med_id'];
+	$dt = $_POST['c_date'];
 	$heure = $_POST['heure'];
 	$duree = $_POST['duree'];
 	$objet = $_POST['objet'];
 
 	// sql query for update data into database
-	$query_update = "UPDATE Consultation SET heure='$heure', duree='$duree', objet='$objet' WHERE patid='$pid' AND medid='$mid' AND cdate='$dt'";
+	$query_update = "UPDATE Consultation SET heure='$heure', duree='$duree', objet='$objet' WHERE patid='$pid' AND medid='$mid' AND cdate='$dt';";
 	// sql query for update data into database
 	
 	// sql query execution function
@@ -58,7 +61,7 @@ function delete_id(id)
 </script>
 <div class="col-md-6 col-md-offset-3">
 	<h2><span>Details de la consulation</span></h2>
-	<form class="form-horizontal" method="post">
+	<form class="form-horizontal" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
 	<div class="panel panel-default">
 		<div class="panel-body">
 		    
@@ -76,11 +79,13 @@ function delete_id(id)
 								} while ($pnames = pg_fetch_row($patients));  ?>
 			    			</select>
 		    			<?php } else { 
-	    					$query_GetPatient = "SELECT prenom, nom FROM patient WHERE patid='$pid';";
+	    					$query_GetPatient = "SELECT patid, prenom, nom FROM patient WHERE patid='$pid';";
 	    					$patient = runQuery($query_GetPatient);
 	    					$pname = pg_fetch_row($patient);	
 	    				?>
-		    			<input type="text" class="form-control" name="pat_id" value="<?php echo $pname[0]. ' ' . $pname[1];?>" disabled>
+	    				<select class="form-control" name="pat_id">
+		    				<?php echo "<option value='$pname[0]'>$pname[1] $pname[2]</option>"; ?>
+		    			</select>
 		    			<?php }?>
 		    		</div>
 		    		<label class="col-md-2 control-label">Medecin:</label>
@@ -97,34 +102,36 @@ function delete_id(id)
 			    				?>
 			    			</select>
 		    			<?php } else { 
-		    				$query_GetMedecin = "SELECT prenom, nom FROM medecin WHERE medID='$mid';";
+		    				$query_GetMedecin = "SELECT medid, prenom, nom FROM medecin WHERE medID='$mid';";
 		    				$medecin = runQuery($query_GetMedecin);
 		    				$mname = pg_fetch_row($medecin);
 	    				?>
-	    					<input type="text" class="form-control" name="med_id" value="<?php echo $mname[0]. ' ' . $mname[1];?>" disabled>
+	    					<select class="form-control" name="med_id">
+	    						<?php echo "<option value='$mname[0]'> $mname[1] $mname[2]</option>"; ?>
+	    					</select>
 		    			<?php }?>
 		    		</div>
 		    	</div>
 		    	<div class="form-group">
 		    		<label class="col-md-2 control-label">Date:</label>
 		    		<div class="col-md-3">
-		    			<input type="date" class="form-control" name="c_date" value="<?php echo $consultation[2];?>" <?php if(!$isSecretary or !$isNew) echo "disabled"?> />
+		    			<input type="date" class="form-control" name="c_date" id="c_date" value="<?php echo $consultation[2];?>" <?php if(!$isSecretary or !$isNew) echo "readonly"?> />
 		    		</div>
 		    		<label class="col-md-2 control-label">Heure:</label>
 		    		<div class="col-md-3">
-		    			<input type="time" class="form-control" name="heure" value="<?php echo $consultation[3];?>" <?php if(!$isSecretary) echo "readonly"?> />
+		    			<input type="time" class="form-control" name="heure" id="heure" value="<?php echo $consultation[3];?>" <?php if(!$isSecretary) echo "readonly"?> />
 		    		</div>
 		    	</div>
 		    	<div class="form-group">
 		    		<label class="col-md-2 control-label">Duree:</label>
 		    		<div class="col-md-3">
-		    			<input type="text" class="form-control" name="duree" value="<?php echo $consultation[4];?>" <?php if(!$isSecretary) echo "readonly"?>  />
+		    			<input type="text" class="form-control" name="duree" id="duree" value="<?php echo $consultation[4];?>" <?php if(!$isSecretary) echo "readonly"?>  />
 		    		</div>
 		    	</div>
 		    	<div class="form-group">
 		    		<label class="col-md-2 control-label">Objet:</label>
 		    		<div class="col-md-8">
-		    			<input type="text" class="form-control" name="objet" value="<?php echo $consultation[5];?>" <?php if($isSecretary) echo "readonly"?>/>
+		    			<input type="text" class="form-control" name="objet" id="objet" value="<?php echo $consultation[5];?>" <?php if($isSecretary) echo "readonly"?>/>
 		    		</div>
 		    	</div>
 		    
