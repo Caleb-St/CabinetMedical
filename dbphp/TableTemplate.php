@@ -6,10 +6,10 @@ for($i=0; $i<count($tableHeaders); $i++)
 ?>
 </tr>
 <?php
-while($row = pg_fetch_row($tableData)){
+while($consultation = pg_fetch_row($tableData)){
 	echo "<tr> \n";
 	for($i=0; $i<pg_num_fields($tableData); $i++) {
-		echo "<td>" . $row[$i] . "</td>";
+		echo "<td>" . $consultation[$i] . "</td>";
 	}
 	echo "</tr> \n";
 }

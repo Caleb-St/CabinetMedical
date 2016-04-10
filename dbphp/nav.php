@@ -8,10 +8,10 @@ $userID = $_SESSION["userID"];
 
 if ($userID[0] == 'M') {
 	$ret = runQuery("SELECT nom,prenom from Medecin WHERE medID='$userID';");
-	$row = pg_fetch_row($ret);
+	$consultation = pg_fetch_row($ret);
 } else {
 	$ret = runQuery("SELECT nom,prenom from Secretaire WHERE secID='$userID';");
-	$row = pg_fetch_row($ret);
+	$consultation = pg_fetch_row($ret);
 }
 ?>
 <nav class="navbar navbar-default">
@@ -33,9 +33,9 @@ if ($userID[0] == 'M') {
     </ul>
     <ul class="nav navbar-nav navbar-right">
     <?php if ($userID[0] == 'M') {?>
-    	<li class="active"><a href="#">Bonjour, Dr. <?php echo $row[1] . " " . $row[0];?></a></li>
+    	<li class="active"><a href="#"><span class="glyphicon glyphicon-user"></span> Dr. <?php echo $consultation[1] . " " . $consultation[0];?></a></li>
     	<?php } else {?>
-    	<li class="active"><a href="#">Bonjour, <?php echo $row[1] . " " . $row[0];?></a></li>
+    	<li class="active"><a href="#"><span class="glyphicon glyphicon-user"></span> <?php echo $consultation[1] . " " . $consultation[0];?></a></li>
     	<?php }?>
     	<li><a href="/CabinetMedical/dbphp/main.php">Deconnexion</a></li>
     </ul>
