@@ -6,7 +6,6 @@
 	$credentials = "user=mwatt023 password=*****";
 	return pg_connect ( "$host $port $dbname $credentials" );
 }
-
  function runQuery($query) {
 	$db = db_connect();
 	if(! $db) {

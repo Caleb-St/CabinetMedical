@@ -409,35 +409,3 @@ org.eclipse.dltk.core.ModelException: $row [in ViewConsultation.php [in <default
 	at org.eclipse.equinox.launcher.Main.run(Main.java:1515)
 !SUBENTRY 1 org.eclipse.dltk.core 4 969 2016-04-10 11:04:38.494
 !MESSAGE $row [in ViewConsultation.php [in <default> [in <project root> [in dbphp]]]] does not exist
-
-!ENTRY org.eclipse.php.core 4 4 2016-04-10 16:01:04.935
-!MESSAGE Index out of bounds
-!STACK 1
-org.eclipse.dltk.core.ModelException: Index out of bounds
-	at org.eclipse.dltk.internal.core.Openable.codeSelect(Openable.java:652)
-	at org.eclipse.dltk.internal.core.Openable.codeSelect(Openable.java:678)
-	at org.eclipse.dltk.internal.core.AbstractSourceModule.codeSelect(AbstractSourceModule.java:85)
-	at org.eclipse.dltk.internal.core.AbstractSourceModule.codeSelect(AbstractSourceModule.java:76)
-	at org.eclipse.php.internal.ui.actions.OpenCallHierarchyAction.getSelectionModelElement(OpenCallHierarchyAction.java:266)
-	at org.eclipse.php.internal.ui.actions.OpenCallHierarchyAction.isEnabled(OpenCallHierarchyAction.java:177)
-	at org.eclipse.php.internal.ui.actions.OpenCallHierarchyAction.access$0(OpenCallHierarchyAction.java:171)
-	at org.eclipse.php.internal.ui.actions.OpenCallHierarchyAction$1.run(OpenCallHierarchyAction.java:124)
-	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
-!SUBENTRY 1 org.eclipse.dltk.core 4 980 2016-04-10 16:01:04.935
-!MESSAGE Index out of bounds
-
-!ENTRY org.eclipse.php.core 4 4 2016-04-10 16:01:04.945
-!MESSAGE Index out of bounds
-!STACK 1
-org.eclipse.dltk.core.ModelException: Index out of bounds
-	at org.eclipse.dltk.internal.core.Openable.codeSelect(Openable.java:652)
-	at org.eclipse.dltk.internal.core.Openable.codeSelect(Openable.java:678)
-	at org.eclipse.dltk.internal.core.AbstractSourceModule.codeSelect(AbstractSourceModule.java:85)
-	at org.eclipse.dltk.internal.core.AbstractSourceModule.codeSelect(AbstractSourceModule.java:76)
-	at org.eclipse.php.internal.ui.actions.OpenTypeHierarchyAction.getSelectionModelElement(OpenTypeHierarchyAction.java:196)
-	at org.eclipse.php.internal.ui.actions.OpenTypeHierarchyAction.isEnabled(OpenTypeHierarchyAction.java:163)
-	at org.eclipse.php.internal.ui.actions.OpenTypeHierarchyAction.access$0(OpenTypeHierarchyAction.java:158)
-	at org.eclipse.php.internal.ui.actions.OpenTypeHierarchyAction$1.run(OpenTypeHierarchyAction.java:121)
-	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
-!SUBENTRY 1 org.eclipse.dltk.core 4 980 2016-04-10 16:01:04.946
-!MESSAGE Index out of bounds
