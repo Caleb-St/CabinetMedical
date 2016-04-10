@@ -25,9 +25,9 @@ if ($userID[0] == 'M') {
         <a class="dropdown-toggle" data-toggle="dropdown" href="#">Consultations
         <span class="caret"></span></a>
         <ul class="dropdown-menu">
-          <li><a href="#">Ajout</a></li>
-          <li><a href="#">Mes consultations</a></li>
-          <li><a href="#">Tout</a></li> 
+          <li><a href="ViewConsultation.php">Ajout</a></li>
+          <li><a href="Dashboard.php">Mes consultations</a></li>
+          <li><a href="ViewAll.php">Tout</a></li> 
         </ul>
       </li> 
     </ul>
