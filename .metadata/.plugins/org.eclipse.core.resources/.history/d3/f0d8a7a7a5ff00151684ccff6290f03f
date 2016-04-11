@@ -16,7 +16,7 @@ session_start();
 <form class="form-signin" method="post" action="/CabinetMedical/dbphp/connectDB.php">
 	 	<h2>Connexion</h2>
 		<div class="form-group">
-			<input class ="form-control" type="text" style="max-width:20em; margin:0 auto; text-align:center" placeholder="SVP entrez votre ID" name="userID">
+			<input class ="form-control" type="text" style="max-width:20em; margin:0 auto;" placeholder="SVP entrez votre ID" name="userID">
 		</div>
 	    <button type="submit" class="btn btn-primary" name="submit">Soumettre</button>
 	    <div class="clearfix"></div>
