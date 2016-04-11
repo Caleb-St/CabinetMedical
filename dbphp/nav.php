@@ -21,8 +21,6 @@ if ($userID[0] == 'M') {
     </div>
     <ul class="nav navbar-nav navbar-left">
       <li><a href="Dashboard.php">Home</a></li>
-        </ul>
-      </li> 
     </ul>
     <ul class="nav navbar-nav navbar-right">
     <?php if ($userID[0] == 'M') {?>

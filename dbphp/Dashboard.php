@@ -10,7 +10,7 @@ $_SESSION["userIsSecretary"] = $isSecretary = $userID[0] == 'S' || $userID[0] ==
 $ret = runQuery("SELECT nom,prenom from Medecin WHERE medID='$userID';");
 $consultation = pg_fetch_row($ret);
 
-if(isset($_GET['delete_id']))
+if(isset($_GET['delete_id'])) //si on supprime une consultation
 {
 	$pid = $_GET['delete_id'][0]. $_GET['delete_id'][1]. $_GET['delete_id'][2]. $_GET['delete_id'][3];
 	$mid = $_GET['delete_id'][4]. $_GET['delete_id'][5]. $_GET['delete_id'][6]. $_GET['delete_id'][7];
@@ -33,6 +33,7 @@ function viewConsultation($patient,$med,$date) {
 	<thead>
 		<tr>
 <?php
+//retourner la liste des consultations pour l'usager
 if ($isDoctor) {	
 $query_GetConsultList = "SELECT c.patid, c.medid, c.cdate, heure, prenom, nom, duree FROM Consultation as c, Patient as p WHERE c.patid = p.patid AND c.medID='$userID' AND c.cdate = current_date ORDER BY heure;";
 } else {
@@ -70,6 +71,7 @@ if (pg_num_rows($appointmentsToday) > 0){
 	<thead>
 		<tr>
 <?php
+//retrouner la liste des consultations futures pour l'usager
 if ($isDoctor) {
 $query_GetConsultList = "SELECT c.patid, c.medid, c.cdate, heure, prenom, nom, duree FROM Consultation as c, Patient as p WHERE c.patid = p.patid AND c.medID='$userID' AND c.cdate > current_date ORDER BY heure;";
 } else {

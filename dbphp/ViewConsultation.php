@@ -11,7 +11,7 @@ function getConsult($patID, $medID, $date) {
 	return pg_fetch_row($appointments);
 }
 
-if(isset($_POST['btn-next'])) {
+if(isset($_POST['btn-next'])) { //consulation suivante
 		$pid = $_POST['pat_id'];
 		$mid = $_POST['med_id'];
 		$dt = $_POST['c_date'];
@@ -28,20 +28,20 @@ if(isset($_POST['btn-next'])) {
 			$isNew = FALSE;
 			$row = pg_fetch_row($res);
 			$consultation = getConsult($row[0], $row[1], $row[2]);
-			$pid = $row[0];
+			$pid = $row[0];	
 		}
 		else {
 			echo header("Location: DoneAppointments.php");
 		}
 }
-else if(!$isNew)
+else if(!$isNew) //lecture de consultation
 {
 	$pid = $_GET['con'][0]. $_GET['con'][1]. $_GET['con'][2]. $_GET['con'][3];
 	$mid = $_GET['con'][4]. $_GET['con'][5]. $_GET['con'][6]. $_GET['con'][7];
 	$dt = $_GET['con'][8]. $_GET['con'][9]. $_GET['con'][10]. $_GET['con'][11]. $_GET['con'][12]. $_GET['con'][13]. $_GET['con'][14]. $_GET['con'][15]. $_GET['con'][16]. $_GET['con'][17];
 	$consultation = getConsult($pid, $mid, $dt);
 }
-elseif(isset($_POST['btn-update']))
+elseif(isset($_POST['btn-update'])) //edit/update consultation
 {
 	$pid = $_POST['pat_id'];
 	$mid = $_POST['med_id'];
@@ -52,7 +52,6 @@ elseif(isset($_POST['btn-update']))
 
 	// sql query for update data into database
 	$query_update = "UPDATE Consultation SET heure='$heure', duree='$duree', objet='$objet' WHERE patid='$pid' AND medid='$mid' AND cdate='$dt';";
-	// sql query for update data into database
 	
 	// sql query execution function
 	if(runQuery($query_update))
@@ -60,7 +59,6 @@ elseif(isset($_POST['btn-update']))
 		?>
 	  <script type="text/javascript">
 	  $consultation = getConsult($pid, $mid, $dt);
-	  //window.location.href='Dashboard.php';
 	  </script>
 	  <?php
 	 }
@@ -73,7 +71,7 @@ elseif(isset($_POST['btn-update']))
 	  <?php
 	 }
 } 
-else if (isset($_POST['btn-new']))
+else if (isset($_POST['btn-new'])) //nouvelle consultation
 {
 	$pid = $_POST['pat_id'];
 	$mid = $_POST['med_id'];
@@ -115,7 +113,7 @@ else
 <script type="text/javascript">	
 function delete_id(id)
 {
- if(confirm('Sure to Delete ?'))
+ if(confirm('Supprimer cette consultation?'))
  {
   window.location.href='Dashboard.php?delete_id='+id;
  }
