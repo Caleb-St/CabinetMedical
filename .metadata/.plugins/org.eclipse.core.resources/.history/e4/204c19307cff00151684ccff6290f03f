@@ -1,0 +1,25 @@
+<?php
+
+require_once("DatabaseManager.php");
+session_start();
+
+$db = db_connect(); //try connecting to the DB just to make sure we have access before proceeding.
+
+if(!$db) {
+	$_SESSION["loginerror"] = $db;
+	header('Location: main.php');
+}
+
+$_SESSION["userID"] = $userID = $_POST["userID"];
+$_SESSION["userIsDoctor"] = $isDoctor = strcasecmp($userID[0], "D");
+$_SESSION["userIsSecretary"] = $isSecretary = strcasecmp($userID[0], "S");
+
+if($isDoctor || $isSecretary) {
+	header('Location: /CabinetMedical/dbphp/Dashboard.php');
+}
+else {
+	$_SESSION["loginerror"] = ""
+}
+	
+
+?>

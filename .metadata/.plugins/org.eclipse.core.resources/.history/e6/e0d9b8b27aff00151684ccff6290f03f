@@ -1,0 +1,14 @@
+<?php
+
+require_once("DatabaseManager.php");
+session_start();
+
+db_connect(); //try connecting to the DB just to make sure we have access before proceeding.
+
+$_SESSION["userID"] = $userID = $_POST["userID"];
+
+	echo $userID[0] == "S";
+
+	//header('Location: /CabinetMedical/dbphp/Dashboard.php');
+
+?>

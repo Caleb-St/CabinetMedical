@@ -1,4 +1,8 @@
-<?php include("Header.php") ?>
+<?php 
+/* Point of entry for the web app (login page) */
+include("Header.php"); //contains HTML head data
+session_start();
+?>
 <!DOCTYPE HTML> 
 <html>
 <head>
@@ -8,50 +12,18 @@
 </style>
 </head>
 <body>
-<div class="col-md-6 col-md-offset-3">
-<form class="form-signin" align="center" method="post" action="/CabinetMedical/dbphp/connectDB.php">
+<div class="col-md-6 col-md-offset-3" style="text-align:center;">
+<form class="form-signin" method="post" action="/CabinetMedical/dbphp/connectDB.php">
 	 	<h2>Connexion</h2>
-		<div class="form-group" align="center">
-			<input class ="form-control" type="text" style="width:20%;" placeholder="SVP entrez votre ID" name="userID">
+		<div class="form-group">
+			<input class ="form-control" type="text" style="max-width:20em; margin:0 auto;" placeholder="SVP entrez votre ID" name="userID">
 		</div>
 	    <button type="submit" class="btn btn-primary" name="submit">Soumettre</button>
-		
+	    <div class="clearfix"></div>
+		<span class="error">
+		<?php if(isset($_SESSION["loginerror"])) { echo $_SESSION["loginerror"]; $_SESSION["loginerror"] = null; } //throw away error once it's displayed ?>
+		</span>
 </form>
 </div>
- <!-- 
-<h2></h2>
-<form method="post" action="/dbphp/connectDB.php"> 
-   <input type="submit" name="ConnectDB" value="Connect to DB">
- </form>
- <br>
-
- <form method="post" action="/dbphp/createTable.php">
-   <input type="submit" name="createTable" value="create Table">
-</form>
-<br>
- <form method="post" action="/dbphp/updateHotelData.php">
-   <input type="submit" name="updateHotelData" value="update Hotel Data">
-</form>
-<br>
-<form method="post" action="/dbphp/deleteHotelData.php">
-   <input type="submit" name="deleteHotelData" value="delete Hotel Data">
-</form>
-<br>
- <form method="post" action="/dbphp/InsertHotelView.php">
-   <input type="submit" name="insertHotel" value="insert Hotel">
-</form>
-<br>
-<form method="post" action="/dbphp/reservationView.php">
-   <input type="submit" name="reservationView" value="Add booking">
-</form>
-<br>
- <form method="post" action="/dbphp/viewHotels.php">
-   <input type="submit" name="viewHotels" value="view Hotels">
-</form>
-<br>
-<form method="post" action="/dbphp/newReservation.php"> -->
-<!--    <input type="submit" name="newReservation" value="newReservation"> -->
-<!-- </form> -->
-<!-- <br> -->
 </body>
 </html>

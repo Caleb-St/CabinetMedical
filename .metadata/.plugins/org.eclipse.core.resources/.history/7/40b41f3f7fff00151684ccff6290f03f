@@ -1,0 +1,51 @@
+<?php
+
+require_once("DatabaseManager.php");
+session_start();
+
+function error($message) {
+	$_SESSION["loginerror"] = $message;
+	header ("Location: main.php");
+}
+
+function redirectToDashboard() {
+	header('Location: Dashboard.php');
+}
+
+$db = db_connect(); //try connecting to the DB just to make sure we have access before proceeding.
+
+if(!$db) {
+	error($db);
+}
+
+$_SESSION["userID"] = $userID = $_POST["userID"];
+$_SESSION["userIsDoctor"] = $isDoctor = strcasecmp($userID[0], "M") == 0;
+$_SESSION["userIsSecretary"] = $isSecretary = strcasecmp($userID[0], "S") == 0;
+
+echo $isSecretary;
+
+if($isDoctor) {
+	echo "test";
+	$doctor = runQuery("SELECT medID FROM Medecin WHERE medID='$userID'");
+	if(pg_num_rows($doctor) > 0) {
+		redirectToDashboard();
+	}
+	else {
+		 error("Incapable de trouver un(e) secretaire avec l'ID $userID.");
+	}
+}
+elseif($isSecretary) {
+$doctor = runQuery("SELECT medID FROM Medecin WHERE medID='$userID'");
+	if(pg_num_rows($doctor) > 0) {
+		redirectToDashboard();
+	}
+	else {
+		error("Incapable de trouver un(e) secretaire avec l'ID $userID.");
+	}
+}
+else {
+	error("ID invalide.");
+}
+	
+
+?>
