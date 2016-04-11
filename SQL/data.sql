@@ -53,7 +53,14 @@ INSERT INTO Consultation VALUES
 	('P006', 'M003', 'Jan-30-2016', '14:00:00', '0:30:00', 'Suivi'),
 	('P001', 'M001', 'Apr-10-2016', '10:15:00', '0:30:00', 'Nouveaux symptomes'),
 	('P002', 'M002', 'Apr-11-2016', '10:15:00', '0:30:00', 'Nouveaux symptomes'),
+	('P004', 'M003', 'Apr-11-2016', '10:15:00', '0:30:00', 'Nouveaux symptomes'),
+	('P005', 'M001', 'Apr-11-2016', '11:00:00', '0:20:00', 'Examen annuel'),
+	('P006', 'M003', 'Apr-11-2016', '14:00:00', '0:30:00', 'Nouveaux symptomes'),
+	('P006', 'M003', 'Apr-12-2016', '14:00:00', '0:30:00', 'Suivi'),
+	('P001', 'M001', 'Apr-12-2016', '10:15:00', '0:30:00', 'Nouveaux symptomes'),
+	('P002', 'M002', 'Apr-12-2016', '10:15:00', '0:30:00', 'Nouveaux symptomes'),
 	('P003', 'M003', 'Apr-11-2016', '10:15:00', '0:30:00', 'Nouveaux symptomes');
+	
 	
 --SUBSTANCEACTIVE (SubID(PK), Nom)
 INSERT INTO SubstanceActive VALUES
