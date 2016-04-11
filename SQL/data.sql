@@ -58,6 +58,9 @@ INSERT INTO Consultation VALUES
 	('P006', 'M003', 'Apr-11-2016', '14:00:00', '0:30:00', 'Nouveaux symptomes'),
 	('P006', 'M003', 'Apr-12-2016', '14:00:00', '0:30:00', 'Suivi'),
 	('P001', 'M001', 'Apr-12-2016', '10:15:00', '0:30:00', 'Nouveaux symptomes'),
+	('P001', 'M001', 'Apr-12-2016', '9:00:00', '0:30:00', 'Nouveaux symptomes'),
+	('P002', 'M001', 'Apr-12-2016', '10:15:00', '0:30:00', 'Suivi'),
+	('P003', 'M001', 'Apr-12-2016', '10:15:00', '0:30:00', 'Nouveaux symptomes'),
 	('P002', 'M002', 'Apr-12-2016', '10:15:00', '0:30:00', 'Nouveaux symptomes'),
 	('P003', 'M003', 'Apr-11-2016', '10:15:00', '0:30:00', 'Nouveaux symptomes');
 	

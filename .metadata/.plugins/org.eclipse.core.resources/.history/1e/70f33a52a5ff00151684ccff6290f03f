@@ -58,7 +58,6 @@ elseif(isset($_POST['btn-update'])) //edit/update consultation
 	{
 		?>
 	  <script type="text/javascript">
-	  alert('Succes!');
 	  window.location.href='Dashboard.php';
 	  </script>
 	  <?php
