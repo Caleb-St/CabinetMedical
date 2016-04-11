@@ -27,7 +27,7 @@ if ($userID[0] == 'M') {
         <ul class="dropdown-menu">
           <li><a href="ViewConsultation.php">Ajout</a></li>
           <li><a href="Dashboard.php">Mes consultations</a></li>
-          <li><a href="ViewAll.php">Toutes consultations</a></li> 
+          <li><a href="ViewAll.php">Tout</a></li> 
         </ul>
       </li> 
     </ul>

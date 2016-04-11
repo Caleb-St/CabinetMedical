@@ -18,18 +18,18 @@ if ($userID[0] == 'M') {
   <div class="container-fluid">
     <div class="navbar-header">
       <a class="navbar-brand" href="#">CabMD</a>
-    </div>
-    <ul class="nav navbar-nav navbar-left">
-      <li><a href="main.php">Home</a></li>
       <li class="dropdown">
         <a class="dropdown-toggle" data-toggle="dropdown" href="#">Consultations
         <span class="caret"></span></a>
         <ul class="dropdown-menu">
           <li><a href="ViewConsultation.php">Ajout</a></li>
           <li><a href="Dashboard.php">Mes consultations</a></li>
-          <li><a href="ViewAll.php">Toutes consultations</a></li> 
+          <li><a href="ViewAll.php">Tout</a></li> 
         </ul>
       </li> 
+    </div>
+    <ul class="nav navbar-nav navbar-left">
+      <li><a href="Dashboard.php">Home</a></li>
     </ul>
     <ul class="nav navbar-nav navbar-right">
     <?php if ($userID[0] == 'M') {?>
