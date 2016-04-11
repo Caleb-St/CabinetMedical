@@ -5,7 +5,7 @@
 $isNew = !isset($_GET['con']);
 $isSecretary = $_SESSION["userIsSecretary"];
 
-function getConsult($patID, $medID, $date) {
+function getConsult($patID, $medId, $date) {
 	$query_GetConsult="SELECT patid, medid, cdate, heure, duree, objet FROM consultation WHERE patid='$patID' AND medid='$medID' AND cdate='$date'";
 	$appointments = runQuery($query_GetConsult);
 	return pg_fetch_row($appointments);
@@ -17,19 +17,18 @@ if(isset($_POST['btn-next'])) {
 		$dt = $_POST['c_date'];
 		$heure = $_POST['heure'];
 	
-		$query_nextConsultation = "SELECT patID, medID, cdate, heure FROM Consultation WHERE medid='$mid' AND cdate='$dt' AND heure>'$heure' ORDER BY heure LIMIT 1;";
+		echo $query_nextConsultation = "SELECT patID, medID, cdate, heure FROM Consultation WHERE medid='$mid' AND cdate='$dt' AND heure>'$heure' ORDER BY heure LIMIT 1;";
 		$res = runQuery($query_nextConsultation);
 		if(pg_num_rows($res) > 0) {
 			$isNew = FALSE;
 			$row = pg_fetch_row($res);
-			$consultation = getConsult($row[0], $row[1], $row[2]);
-			$pid = $row[0];
+			getConsult($row[0], $row[1], $row[2]);
 		}
 		else {
-			echo header("Location: DoneAppointments.php");
+			echo "done";
 		}
 }
-else if(!$isNew)
+if(!$isNew)
 {
 	$pid = $_GET['con'][0]. $_GET['con'][1]. $_GET['con'][2]. $_GET['con'][3];
 	$mid = $_GET['con'][4]. $_GET['con'][5]. $_GET['con'][6]. $_GET['con'][7];
@@ -87,7 +86,7 @@ else if (isset($_POST['btn-new']))
 		?>
 		  <script type="text/javascript">
 		  alert('Success!');
-		  window.location.href='Dashboard.php';
+		  //window.location.href='Dashboard.php';
 		  </script>
 		  <?php
 		 }

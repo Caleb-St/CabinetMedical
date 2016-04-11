@@ -26,7 +26,7 @@ if(isset($_POST['btn-next'])) {
 			$pid = $row[0];
 		}
 		else {
-			echo header("Location: DoneAppointments.php");
+			echo "done";
 		}
 }
 else if(!$isNew)
@@ -87,7 +87,7 @@ else if (isset($_POST['btn-new']))
 		?>
 		  <script type="text/javascript">
 		  alert('Success!');
-		  window.location.href='Dashboard.php';
+		  //window.location.href='Dashboard.php';
 		  </script>
 		  <?php
 		 }
