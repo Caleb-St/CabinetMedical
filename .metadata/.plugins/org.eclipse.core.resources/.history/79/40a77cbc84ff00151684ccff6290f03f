@@ -32,7 +32,7 @@ elseif(isset($_POST['btn-update']))
 	{
 		?>
 	  <script type="text/javascript">
-	  alert('Success!');
+	  alert('Data Are Updated Successfully');
 	  window.location.href='Dashboard.php';
 	  </script>
 	  <?php
@@ -41,7 +41,7 @@ elseif(isset($_POST['btn-update']))
 	 {
 	  ?>
 	  <script type="text/javascript">
-	  alert('Une erreur est survenue lors de la mise à jour de la consultation.');
+	  alert('error occured while updating data');
 	  </script>
 	  <?php
 	 }
@@ -64,7 +64,7 @@ else if (isset($_POST['btn-new']))
 	{
 		?>
 		  <script type="text/javascript">
-		  alert('Success!');
+		  alert('Data Are Updated Successfully');
 		  window.location.href='Dashboard.php';
 		  </script>
 		  <?php
@@ -73,7 +73,7 @@ else if (isset($_POST['btn-new']))
 		 {
 		  ?>
 		  <script type="text/javascript">
-		  alert('Une erreur est survenue lors de la creation de la consultation.');
+		  alert('error occured while updating data');
 		  </script>
 		  <?php
 		 }

@@ -34,9 +34,9 @@ function viewConsultation($patient,$med,$date) {
 		<tr>
 <?php
 if ($isDoctor) {	
-$query_GetConsultList = "SELECT c.patid, c.medid, c.cdate, heure, prenom, nom, duree FROM Consultation as c, Patient as p WHERE c.patid = p.patid AND c.medID='$userID' AND c.cdate = current_date ORDER BY heure;";
+$query_GetConsultList = "SELECT c.patid, c.medid, c.cdate, heure, prenom, nom, duree FROM Consultation as c, Patient as p WHERE c.patid = p.patid AND c.medID='$userID' AND c.cdate = current_date ORDER BY c.cdate;";
 } else {
-$query_GetConsultList = "SELECT c.patid, c.medid, c.cdate, heure, prenom, nom, duree FROM Consultation as c, Patient as p WHERE c.patid = p.patid AND c.medID IN (SELECT m.medid FROM medecin as m WHERE m.secid ='$userID') AND c.cdate = current_date ORDER BY heure;";
+$query_GetConsultList = "SELECT c.patid, c.medid, c.cdate, heure, prenom, nom, duree FROM Consultation as c, Patient as p WHERE c.patid = p.patid AND c.medID IN (SELECT m.medid FROM medecin as m WHERE m.secid ='$userID') AND c.cdate = current_date ORDER BY c.cdate;";
 }
 $appointmentsToday = runQuery($query_GetConsultList);
 $consultation = pg_fetch_row($appointmentsToday);
@@ -71,9 +71,9 @@ if (pg_num_rows($appointmentsToday) > 0){
 		<tr>
 <?php
 if ($isDoctor) {
-$query_GetConsultList = "SELECT c.patid, c.medid, c.cdate, heure, prenom, nom, duree FROM Consultation as c, Patient as p WHERE c.patid = p.patid AND c.medID='$userID' AND c.cdate > current_date ORDER BY heure;";
+$query_GetConsultList = "SELECT c.patid, c.medid, c.cdate, heure, prenom, nom, duree FROM Consultation as c, Patient as p WHERE c.patid = p.patid AND c.medID='$userID' AND c.cdate > current_date ORDER BY c.cdate;";
 } else {
-$query_GetConsultList = "SELECT c.patid, c.medid, c.cdate, heure, prenom, nom, duree FROM Consultation as c, Patient as p WHERE c.patid = p.patid AND c.medID IN (SELECT m.medid FROM medecin as m WHERE m.secid ='$userID') AND c.cdate > current_date ORDER BY heure;";
+$query_GetConsultList = "SELECT c.patid, c.medid, c.cdate, heure, prenom, nom, duree FROM Consultation as c, Patient as p WHERE c.patid = p.patid AND c.medID IN (SELECT m.medid FROM medecin as m WHERE m.secid ='$userID') AND c.cdate > current_date ORDER BY c.cdate;";
 }
 $appointmentsToday = runQuery($query_GetConsultList);
 $consultation = pg_fetch_row($appointmentsToday);
