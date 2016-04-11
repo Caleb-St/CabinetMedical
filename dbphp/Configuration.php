@@ -1,6 +1,6 @@
 <?php
-$config_host = "host=www.eecs.uottawa.ca";
-$config_port = "port=15432";
-$config_dbname = "dbname=mwatt023";
-$config_credentials = "user=mwatt023 password=52650@WAts";
+$config_host = "host=localhost";
+$config_port = "port=5433";
+$config_dbname = "dbname=postgres";
+$config_credentials = "user=postgres password=postgres";
 ?>

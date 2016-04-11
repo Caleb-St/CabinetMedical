@@ -45,11 +45,46 @@ elseif(isset($_POST['btn-update']))
 	  </script>
 	  <?php
 	 }
-} else
+} 
+else if (isset($_POST['btn-new']))
+{
+	$pid = $_POST['pat_id'];
+	$mid = $_POST['med_id'];
+	$dt = $_POST['c_date'];
+	$heure = $_POST['heure'];
+	$duree = $_POST['duree'];
+	$objet = $_POST['objet'];
+	
+	// sql query for create data into database
+	$query_create = "INSERT INTO cabinetmd.consultation VALUES ('$pid', '$mid', '$dt', '$heure', '$duree', '$objet');";
+	// sql query for create data into database
+	
+	// sql query execution function
+	if(runQuery($query_create))
+	{
+		?>
+		  <script type="text/javascript">
+		  alert('Data Are Updated Successfully');
+		  window.location.href='Dashboard.php';
+		  </script>
+		  <?php
+		 }
+		 else
+		 {
+		  ?>
+		  <script type="text/javascript">
+		  alert('error occured while updating data');
+		  </script>
+		  <?php
+		 }
+}
+	
+
+else
 	$consultation = array("","","","","","","","");
 
-
 ?>
+
 <script type="text/javascript">	
 function delete_id(id)
 {
