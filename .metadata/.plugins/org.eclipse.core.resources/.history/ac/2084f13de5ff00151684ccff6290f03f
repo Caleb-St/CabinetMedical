@@ -1,0 +1,212 @@
+<?php include("Header.php"); ?>
+<?php include("nav.php"); ?>
+<?php require_once("Validation.php");?>
+<body>
+<?php
+$isNew = !isset($_GET['con']);
+$isSecretary = $_SESSION["userIsSecretary"];
+
+function getConsult($patID, $medID, $date) {
+	$query_GetConsult="SELECT patid, medid, cdate, heure, duree, objet FROM consultation WHERE patid='$patID' AND medid='$medID' AND cdate='$date'";
+	$appointments = runQuery($query_GetConsult);
+	return pg_fetch_row($appointments);
+}
+
+function update() {
+	global $pid, $mid, $dt, $heure, $duree, $objet;
+	getAndValidateFormData();
+	// sql query for update data into database
+	$query_update = "UPDATE Consultation SET heure='$heure', duree='$duree', objet='$objet' WHERE patid='$pid' AND medid='$mid' AND cdate='$dt';";
+	return runQuery($query_update);
+}
+
+function create() {
+	global $pid, $mid, $dt, $heure, $duree, $objet;
+	getAndValidateFormData();
+	// sql query for create data into database
+	$query_create = "INSERT INTO cabinetmd.consultation VALUES ('$pid', '$mid', '$dt', '$heure', '$duree', '$objet');";
+}
+
+function getAndValidateFormData() {
+	global $pid, $mid, $dt, $heure, $duree, $objet;
+	$pid = test_input($_POST['pat_id']);
+	$mid = test_input($_POST['med_id']);
+	$dt = test_input($_POST['c_date']);
+	$heure = test_input($_POST['heure']);
+	$duree = test_input($_POST['duree']);
+	$objet = test_input($_POST['objet']);
+}
+
+if(isset($_POST['btn-next'])) { //consulation suivante
+	update();		
+	$query_nextConsultation = "SELECT patID, medID, cdate, heure FROM Consultation WHERE medid='$mid' AND cdate='$dt' AND heure>'$heure' ORDER BY heure LIMIT 1;";
+	$res = runQuery($query_nextConsultation);
+	if(pg_num_rows($res) > 0) {
+		$isNew = FALSE;
+		$row = pg_fetch_row($res);
+		$consultation = getConsult($row[0], $row[1], $row[2]);
+		$pid = $row[0];	
+	}
+	else {
+		echo header("Location: DoneAppointments.php");
+	}
+}
+else if(!$isNew) //lecture de consultation
+{
+	$pid = $_GET['con'][0]. $_GET['con'][1]. $_GET['con'][2]. $_GET['con'][3];
+	$mid = $_GET['con'][4]. $_GET['con'][5]. $_GET['con'][6]. $_GET['con'][7];
+	$dt = $_GET['con'][8]. $_GET['con'][9]. $_GET['con'][10]. $_GET['con'][11]. $_GET['con'][12]. $_GET['con'][13]. $_GET['con'][14]. $_GET['con'][15]. $_GET['con'][16]. $_GET['con'][17];
+	$consultation = getConsult($pid, $mid, $dt);
+}
+elseif(isset($_POST['btn-update'])) //edit/update consultation
+{
+	// sql query execution function
+	if(update())
+	{
+		?>
+	  <script type="text/javascript">
+	  alert('Succes!');
+	  window.location.href='Dashboard.php';
+	  </script>
+	  <?php
+	 }
+	 else
+	 {
+	  ?>
+	  <script type="text/javascript">
+	  alert('Une erreur est survenue lors de la mise à jour de la consultation.');
+	  </script>
+	  <?php
+	 }
+} 
+else if (isset($_POST['btn-new'])) //nouvelle consultation
+{	
+	// sql query execution function
+	if(create())
+	{
+		?>
+		  <script type="text/javascript">
+		  alert('Succes!');
+		  window.location.href='Dashboard.php';
+		  </script>
+		  <?php
+		 }
+		 else
+		 {
+		  ?>
+		  <script type="text/javascript">
+		  alert('Une erreur est survenue lors de la creation de la consultation.');
+		  </script>
+		  <?php
+		 }
+}
+
+
+else
+	$consultation = array("","","","","","","",""); //empty fields for a new consultation
+
+?>
+
+<script type="text/javascript">	
+function delete_id(id)
+{
+ if(confirm('Etes-vous sur de vouloir supprimer cette consultation? Ceci est une action irreversible.'))
+ {
+  window.location.href='Dashboard.php?delete_id='+id;
+ }
+}
+</script>
+<div class="col-md-6 col-md-offset-3">
+	<h2><span>Details de la consulation</span></h2>
+	<div class="panel panel-default">
+		<div class="panel-body">
+		    <form class="form-horizontal" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+		    	<div class="form-group">
+		    		<label class="col-md-2 control-label">Patient:</label>
+		    		<div class="col-md-3">
+		    			<?php if($isNew) {	?>
+			    			<select class="form-control" name="pat_id">
+			    				<?php 
+			    				$query_GetPatients = "SELECT patid, prenom, nom FROM patient ORDER BY nom;";
+			    				$patients = runQuery($query_GetPatients);
+			    				$pnames = pg_fetch_row($patients);
+								do {
+									echo "<option value='$pnames[0]'>$pnames[1] $pnames[2]</option>";
+								} while ($pnames = pg_fetch_row($patients));  ?>
+			    			</select>
+		    			<?php } else { 
+	    					$query_GetPatient = "SELECT patid, prenom, nom FROM patient WHERE patid='$pid';";
+	    					$patient = runQuery($query_GetPatient);
+	    					$pname = pg_fetch_row($patient);	
+	    				?>
+	    				<select class="form-control" name="pat_id">
+		    				<?php echo "<option value='$pname[0]'>$pname[1] $pname[2]</option>"; ?>
+		    			</select>
+		    			<?php }?>
+		    		</div>
+		    		<label class="col-md-2 control-label">Medecin:</label>
+		    		<div class="col-md-3">
+		    			<?php if($isNew) {	?>
+			    			<select class="form-control" name="med_id">
+			    				<?php 
+			    				$query_GetMedecins = "SELECT medid, prenom, nom FROM medecin WHERE secid ='$userID' ORDER BY nom;";
+			    				$medecins = runQuery($query_GetMedecins);
+			    				$mnames = pg_fetch_row($medecins);
+								do {
+									echo "<option value='$mnames[0]'> $mnames[1] $mnames[2]</option>";
+			    				} while ($mnames = pg_fetch_row($medecins));  
+			    				?>
+			    			</select>
+		    			<?php } else { 
+		    				$query_GetMedecin = "SELECT medid, prenom, nom FROM medecin WHERE medID='$mid';";
+		    				$medecin = runQuery($query_GetMedecin);
+		    				$mname = pg_fetch_row($medecin);
+	    				?>
+	    					<select class="form-control" name="med_id">
+	    						<?php echo "<option value='$mname[0]'> $mname[1] $mname[2]</option>"; ?>
+	    					</select>
+		    			<?php }?>
+		    		</div>
+		    	</div>
+		    	<div class="form-group">
+		    		<label class="col-md-2 control-label">Date:</label>
+		    		<div class="col-md-3">
+		    			<input type="date" class="form-control" name="c_date" id="c_date" value="<?php echo $consultation[2];?>" <?php if(!$isSecretary or !$isNew) echo "readonly"?> />
+		    		</div>
+		    		<label class="col-md-2 control-label">Heure:</label>
+		    		<div class="col-md-3">
+		    			<input type="time" class="form-control" name="heure" id="heure" value="<?php echo $consultation[3];?>" <?php if(!$isSecretary) echo "readonly"?> />
+		    		</div>
+		    	</div>
+		    	<div class="form-group">
+		    		<label class="col-md-2 control-label">Duree:</label>
+		    		<div class="col-md-3">
+		    			<input type="text" class="form-control" name="duree" id="duree" value="<?php echo $consultation[4];?>" />
+		    		</div>
+		    	</div>
+		    	<div class="form-group">
+		    		<label class="col-md-2 control-label">Objet:</label>
+		    		<div class="col-md-8">
+		    			<input type="text" class="form-control" name="objet" id="objet" value="<?php echo $consultation[5];?>" <?php if($isSecretary) echo "readonly"?>/>
+		    		</div>
+		    	</div>
+		    	<div align="center">
+				    <?php if ($isNew) {?>
+			    		<button type="submit" class="btn btn-success" name="btn-new">Creer</button>
+			    	<?php } else {?>
+			    		<button type="submit" class="btn btn-success" name="btn-update">Save</button>	
+			    	<?php }?>
+			    	<?php if(!$isSecretary) {?>
+			    		<button type="submit" class="btn btn-primary" name="btn-next">Save & Next</button>	
+			    	<?php }?>
+	    		</div>
+			</form>
+		</div>
+		<div class="panel-footer" align="right">
+			<?php if($isSecretary and !$isNew) { ?><a href="javascript:delete_id('<?php echo $pid . $mid . $dt; ?>')"><button class="btn btn-danger">Supprimer</button></a> <?php } ?>
+			<a class="btn btn-default" href="Dashboard.php">Retour</a>    	
+		</div>
+	</div>
+</div>
+</body>
+</html>

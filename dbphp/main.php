@@ -13,7 +13,7 @@ session_start();
 </head>
 <body>
 <div class="col-md-6 col-md-offset-3" style="text-align:center;">
-<form class="form-signin" method="post" action="/CabinetMedical/dbphp/connectDB.php">
+<form class="form-signin" method="post" action="/CabinetMedical/dbphp/LoginManager.php">
 	 	<h2>Connexion</h2>
 		<div class="form-group">
 			<input class ="form-control" type="text" style="max-width:20em; margin:0 auto; text-align:center" placeholder="SVP entrez votre ID" name="userID">

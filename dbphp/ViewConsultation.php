@@ -1,5 +1,6 @@
 <?php include("Header.php"); ?>
 <?php include("nav.php"); ?>
+<?php require_once("Validation.php");?>
 <body>
 <?php
 $isNew = !isset($_GET['con']);
@@ -11,28 +12,46 @@ function getConsult($patID, $medID, $date) {
 	return pg_fetch_row($appointments);
 }
 
+function update() {
+	global $pid, $mid, $dt, $heure, $duree, $objet;
+	getAndValidateFormData();
+	// sql query for update data into database
+	$query_update = "UPDATE Consultation SET heure='$heure', duree='$duree', objet='$objet' WHERE patid='$pid' AND medid='$mid' AND cdate='$dt';";
+	return runQuery($query_update);
+}
+
+function create() {
+	global $pid, $mid, $dt, $heure, $duree, $objet;
+	getAndValidateFormData();
+	// sql query for create data into database
+	$query_create = "INSERT INTO cabinetmd.consultation VALUES ('$pid', '$mid', '$dt', '$heure', '$duree', '$objet');";
+	return runQuery($query_create);
+}
+
+function getAndValidateFormData() {
+	global $pid, $mid, $dt, $heure, $duree, $objet;
+	$pid = test_input($_POST['pat_id']);
+	$mid = test_input($_POST['med_id']);
+	$dt = test_input($_POST['c_date']);
+	$heure = test_input($_POST['heure']);
+	$duree = test_input($_POST['duree']);
+	$objet = test_input($_POST['objet']);
+}
+
 if(isset($_POST['btn-next'])) { //consulation suivante
-		$pid = $_POST['pat_id'];
-		$mid = $_POST['med_id'];
-		$dt = $_POST['c_date'];
-		$heure = $_POST['heure'];
-		$duree = $_POST['duree'];
-		$objet = $_POST['objet'];
-	
-		$query_update = "UPDATE Consultation SET heure='$heure', duree='$duree', objet='$objet' WHERE patid='$pid' AND medid='$mid' AND cdate='$dt';";
-		runQuery($query_update);
-		
-		$query_nextConsultation = "SELECT patID, medID, cdate, heure FROM Consultation WHERE medid='$mid' AND cdate='$dt' AND heure>'$heure' ORDER BY heure LIMIT 1;";
-		$res = runQuery($query_nextConsultation);
-		if(pg_num_rows($res) > 0) {
-			$isNew = FALSE;
-			$row = pg_fetch_row($res);
-			$consultation = getConsult($row[0], $row[1], $row[2]);
-			$pid = $row[0];	
-		}
-		else {
-			echo header("Location: DoneAppointments.php");
-		}
+	global $pid, $mid, $dt, $heure, $duree, $objet;
+	update();		
+	$query_nextConsultation = "SELECT patID, medID, cdate, heure FROM Consultation WHERE medid='$mid' AND cdate='$dt' AND heure>'$heure' ORDER BY heure LIMIT 1;";
+	$res = runQuery($query_nextConsultation);
+	if(pg_num_rows($res) > 0) {
+		$isNew = FALSE;
+		$row = pg_fetch_row($res);
+		$consultation = getConsult($row[0], $row[1], $row[2]);
+		$pid = $row[0];	
+	}
+	else {
+		echo header("Location: DoneAppointments.php");
+	}
 }
 else if(!$isNew) //lecture de consultation
 {
@@ -43,18 +62,8 @@ else if(!$isNew) //lecture de consultation
 }
 elseif(isset($_POST['btn-update'])) //edit/update consultation
 {
-	$pid = $_POST['pat_id'];
-	$mid = $_POST['med_id'];
-	$dt = $_POST['c_date'];
-	$heure = $_POST['heure'];
-	$duree = $_POST['duree'];
-	$objet = $_POST['objet'];
-
-	// sql query for update data into database
-	$query_update = "UPDATE Consultation SET heure='$heure', duree='$duree', objet='$objet' WHERE patid='$pid' AND medid='$mid' AND cdate='$dt';";
-	
 	// sql query execution function
-	if(runQuery($query_update))
+	if(update())
 	{
 		?>
 	  <script type="text/javascript">
@@ -73,20 +82,9 @@ elseif(isset($_POST['btn-update'])) //edit/update consultation
 	 }
 } 
 else if (isset($_POST['btn-new'])) //nouvelle consultation
-{
-	$pid = $_POST['pat_id'];
-	$mid = $_POST['med_id'];
-	$dt = $_POST['c_date'];
-	$heure = $_POST['heure'];
-	$duree = $_POST['duree'];
-	$objet = $_POST['objet'];
-	
-	// sql query for create data into database
-	$query_create = "INSERT INTO cabinetmd.consultation VALUES ('$pid', '$mid', '$dt', '$heure', '$duree', '$objet');";
-	// sql query for create data into database
-	
+{	
 	// sql query execution function
-	if(runQuery($query_create))
+	if(create())
 	{
 		?>
 		  <script type="text/javascript">
@@ -100,6 +98,7 @@ else if (isset($_POST['btn-new'])) //nouvelle consultation
 		  ?>
 		  <script type="text/javascript">
 		  alert('Une erreur est survenue lors de la creation de la consultation.');
+		  window.location.href='Dashboard.php';
 		  </script>
 		  <?php
 		 }
@@ -107,7 +106,7 @@ else if (isset($_POST['btn-new'])) //nouvelle consultation
 
 
 else
-	$consultation = array("","","","","","","","");
+	$consultation = array("","","","","","","",""); //empty fields for a new consultation
 
 ?>
 
