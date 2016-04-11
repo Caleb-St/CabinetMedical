@@ -16,12 +16,7 @@ if(isset($_POST['btn-next'])) {
 		$mid = $_POST['med_id'];
 		$dt = $_POST['c_date'];
 		$heure = $_POST['heure'];
-		$duree = $_POST['duree'];
-		$objet = $_POST['objet'];
 	
-		$query_update = "UPDATE Consultation SET heure='$heure', duree='$duree', objet='$objet' WHERE patid='$pid' AND medid='$mid' AND cdate='$dt';";
-		runQuery($query_update);
-		
 		$query_nextConsultation = "SELECT patID, medID, cdate, heure FROM Consultation WHERE medid='$mid' AND cdate='$dt' AND heure>'$heure' ORDER BY heure LIMIT 1;";
 		$res = runQuery($query_nextConsultation);
 		if(pg_num_rows($res) > 0) {
@@ -59,7 +54,8 @@ elseif(isset($_POST['btn-update']))
 	{
 		?>
 	  <script type="text/javascript">
-	  $consultation = getConsult($pid, $mid, $dt);
+	  alert('Success!');
+	  return;
 	  //window.location.href='Dashboard.php';
 	  </script>
 	  <?php
@@ -91,7 +87,7 @@ else if (isset($_POST['btn-new']))
 	{
 		?>
 		  <script type="text/javascript">
-		  alert('Succes!');
+		  alert('Success!');
 		  window.location.href='Dashboard.php';
 		  </script>
 		  <?php
@@ -186,7 +182,7 @@ function delete_id(id)
 		    	<div class="form-group">
 		    		<label class="col-md-2 control-label">Duree:</label>
 		    		<div class="col-md-3">
-		    			<input type="text" class="form-control" name="duree" id="duree" value="<?php echo $consultation[4];?>" />
+		    			<input type="text" class="form-control" name="duree" id="duree" value="<?php echo $consultation[4];?>" <?php if(!$isSecretary) echo "readonly"?>  />
 		    		</div>
 		    	</div>
 		    	<div class="form-group">
@@ -199,10 +195,10 @@ function delete_id(id)
 				    <?php if ($isNew) {?>
 			    		<button type="submit" class="btn btn-success" name="btn-new">Creer</button>
 			    	<?php } else {?>
-			    		<button type="submit" class="btn btn-success" name="btn-update">Save</button>	
+			    		<button type="submit" class="btn btn-success" name="btn-update">Sauvegarder</button>	
 			    	<?php }?>
 			    	<?php if(!$isSecretary) {?>
-			    		<button type="submit" class="btn btn-primary" name="btn-next">Save & Next</button>	
+			    		<button type="submit" class="btn btn-primary" name="btn-next">Prochaine consultation</button>	
 			    	<?php }?>
 	    		</div>
 			</form>

@@ -186,7 +186,7 @@ function delete_id(id)
 		    	<div class="form-group">
 		    		<label class="col-md-2 control-label">Duree:</label>
 		    		<div class="col-md-3">
-		    			<input type="text" class="form-control" name="duree" id="duree" value="<?php echo $consultation[4];?>" />
+		    			<input type="text" class="form-control" name="duree" id="duree" value="<?php echo $consultation[4];?>" <?php if(!$isSecretary) echo "readonly"?>  />
 		    		</div>
 		    	</div>
 		    	<div class="form-group">
