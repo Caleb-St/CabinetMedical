@@ -207,7 +207,7 @@ function delete_id(id)
 			</form>
 		</div>
 		<div class="panel-footer" align="right">
-			<?php if($isSecretary and !$isNew) { ?><a href="javascript:delete_id('<?php echo $pid . $mid . $dt; ?>')"><button class="btn btn-danger">Supprimer</button></a> <?php } ?>
+			<?php if($isSecretary) { ?><a href="javascript:delete_id('<?php echo $pid . $mid . $dt; ?>')"><button class="btn btn-danger">Supprimer</button></a> <?php } ?>
 			<a class="btn btn-default" href="Dashboard.php">Retour</a>    	
 		</div>
 	</div>
